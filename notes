@@ -1,0 +1,13 @@
+1 Your CPU is a mind-reader
+  - Branch predictor
+  - Can be measured even from python!
+2 The cache has a mind of its own
+  - prefetchers
+3 Your CPU is a VM
+  - the opcodes you write are not the opcode it executes
+4 Your CPU doesn't even do things in the order you asked it
+5 Your CPU can be flash updated
+BONUS!
+- Your CPU is a network
+  - not just QPI
+  - also within the core!
