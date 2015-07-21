@@ -1,13 +1,46 @@
-1 Your CPU is a mind-reader
-  - Branch predictor
-  - Can be measured even from python!
-2 The cache has a mind of its own
-  - prefetchers
-3 Your CPU is a VM
-  - the opcodes you write are not the opcode it executes
-4 Your CPU doesn't even do things in the order you asked it
-5 Your CPU can be flash updated
+Intro
+- x86 centric, Haswell/Ivy
+- there will be assembly!
+Guesses where your data is
+- Caches so much faster than RAM
+- But first miss expensive
+- Often code has predictable memory access pattern
+- Cache "learns" these and tries to run ahead
+- Great when right, extra stress when wrong
+CISC -> RISC
+- Intel hates their complex ISA as much as we do
+- So they don't ues it
+- Decode circuitry turns x86 code into internal µops
+- Sorta code compression
+- "compare" / "branch" -> one µop
+Turns code into SSA
+- Inter-instruction dependency DAG
+- Many more registers than the ISA exposes
+- Internal "SSA" form is then further optimized
+  - mov eax, edx -> goes away
+Reschedules instructions
+- completely reordered based on DAG
+- multiple "execution ports" let instructions run in parallel
+- independent slow instructions don't affect other
+- 100+ instructions can be in flight
+Predicts the future
+- Only way to fill the 100+ pipe is to predict branches
+- "Learns" patterns of branches
+- Also used for polymorphic dispatch
+- Can even be seen from Python
+  - example
+
 BONUS!
 - Your CPU is a network
   - not just QPI
   - also within the core!
+- TLBs/RAM pages
+
+1 Guesses where data is
+2 CISC->RISC
+3 "JIT"s the RISC
+4 SSA form
+5 Predict future
+  python demo
+
+
