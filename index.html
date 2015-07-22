@@ -141,18 +141,6 @@ mov [rsi], eax  ; *rsi = eax3
     ret
 </code></pre>
             </section>
-            <section>
-                <h2>5. Predicts the future</h2>
-                <pre><code class="asm">eax1 = eax0 + *rdi0
-rdi1 = rdi0 + 4
-   eax2 = eax1 + *rdi1 ; blocked until eax1 read completes
-rdi2 = rdi1 + 4
-cmp rdi1, rdx
-branch
-cmp rdi2, rdx
-ret
-</code></pre>
-            </section>
         </section>
 
         <section>
