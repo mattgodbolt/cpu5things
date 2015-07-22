@@ -83,32 +83,88 @@ add [rdi+16], 1 ; tmp = rdi + 16
 
         <section>
             <h2>3. Reschedules your code</h2>
-<pre class="fragment"><code class="asm">mov eax, [rdi]
-add eax, ebx
-mov [rdi], eax
+<pre class="fragment"><code class="asm">mov eax, [rdi]  ; eax = *rdi
+add eax, ebx    ; eax += ebx
+mov [rdi], eax  ; *rdi = eax
 
-mov edx, [rsi]
-add edx, ebx
-mov [rsi], edx
+mov edx, [rsi]  ; edx = *rsi
+add edx, ebx    ; edx += ebx
+mov [rsi], edx  ; *rsi = edx
 </code></pre>
         </section>
 
         <section>
-            <h2>4. Converts to SSA form</h2>
-<pre class="fragment"><code class="asm">mov eax, [rdi]        ; eax0 = [rdi]
-xor edx, edx          ; edx0 = 0
-div esi               ; eax1 = eax0 / esi
-mov [rdi], eax        ; [rdi] = eax1
-mov eax, [rdi + 4]    ; eax2 = [rdi + 4]
-div esi               ; eax3 = eax2 / esi
-mov [rdi + 4], eax    ; [rdi + 4] = eax3
+            <section>
+                <h2>4. Converts to SSA form</h2>
+<pre><code class="asm">mov eax, [rdi]  ; eax = *rdi
+add eax, ebx    ; eax += ebx
+mov [rdi], eax  ; *rdi = eax
+
+mov eax, [rsi]  ; eax = *rsi
+add eax, ebx    ; eax += ebx
+mov [rsi], eax  ; *rsi = eax
 </code></pre>
+            </section>
+            <section>
+                <h2>4. Converts to SSA form</h2>
+<pre><code class="asm">mov eax, [rdi]  ; eax0 = *rdi
+add eax, ebx    ; eax1 = eax0 + ebx
+mov [rdi], eax  ; *rdi = eax1
+
+mov eax, [rsi]  ; eax2 = *rsi
+add eax, ebx    ; eax3 = eax2 + ebx
+mov [rsi], eax  ; *rsi = eax3
+</code></pre>
+            </section>
         </section>
 
         <section>
-            <h2>5. Predicts the future</h2>
+            <section>
+                <h2>5. Predicts the future</h2>
+                <pre class="fragment"><code class="asm">.loop
+    add eax, [rdi]         ; add next value
+    add rdi, 4             ; move pointer along
+    cmp rdi, rdx           ; reached end?
+    bne loop               ; no, keep going
+</code></pre>
+            </section>
+            <section>
+                <h2>5. Predicts the future</h2>
+                <pre><code class="asm">    add eax, [rdi]  ; eax1 = eax0 + *rdi0
+    add rdi, 4      ; rdi1 = rdi0 + 4
+    cmp rdi, rdx    ; cmp rdi1, rdx
+    bne loop        ; predicted taken
+    add eax, [rdi]  ; eax2 = eax1 + *rdi1
+    add rdi, 4      ; rdi2 = rdi1 + 4
+    cmp rdi, rdx    ; cmp rdi2, rdx
+    bne loop        ; predicted not taken
+    ret
+</code></pre>
+            </section>
+            <section>
+                <h2>5. Predicts the future</h2>
+                <pre><code class="asm">eax1 = eax0 + *rdi0
+rdi1 = rdi0 + 4
+   eax2 = eax1 + *rdi1 ; blocked until eax1 read completes
+rdi2 = rdi1 + 4
+cmp rdi1, rdx
+branch
+cmp rdi2, rdx
+ret
+</code></pre>
+            </section>
         </section>
 
+        <section>
+            <h2>Summary</h2>
+            <ol>
+                <li>Prefetches&nbsp;data</li>
+                <li>Converts&nbsp;to&nbsp;µcode</li>
+                <li>OoO&nbsp;execution</li>
+                <li>Register&nbsp;renaming</li>
+                <li>Branch&nbsp;prediction</li>
+            </ol>
+        </section>
         <section>
             <h2>Any questions</h2>
 
@@ -117,6 +173,7 @@ mov [rdi + 4], eax    ; [rdi + 4] = eax3
                 <li><a href="http://xania.org/">http://xania.org</a></li>
                 <li><a href="https://twitter.com/mattgodbolt">@mattgodbolt</a></li>
                 <li><a href="https://github.com/mattgodbolt">github.com/mattgodbolt</a></li>
+                <li><a href="https://gcc.godbolt.org/">gcc.godbolt.org</a></li>
             </ul>
         </section>
     </div>
