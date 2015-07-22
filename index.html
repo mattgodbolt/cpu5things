@@ -96,7 +96,7 @@ mov [rsi], edx  ; *rsi = edx
         <section>
             <section>
                 <h2>4. Converts to SSA form</h2>
-<pre><code class="asm">mov eax, [rdi]  ; eax = *rdi
+<pre class="fragment"><code class="asm">mov eax, [rdi]  ; eax = *rdi
 add eax, ebx    ; eax += ebx
 mov [rdi], eax  ; *rdi = eax
 
@@ -107,7 +107,7 @@ mov [rsi], eax  ; *rsi = eax
             </section>
             <section>
                 <h2>4. Converts to SSA form</h2>
-<pre class="fragment"><code class="asm">mov eax, [rdi]  ; eax0 = *rdi
+<pre><code class="asm">mov eax, [rdi]  ; eax0 = *rdi
 add eax, ebx    ; eax1 = eax0 + ebx
 mov [rdi], eax  ; *rdi = eax1
 
