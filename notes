@@ -30,17 +30,7 @@ Predicts the future
 - Can even be seen from Python
   - example
 
-BONUS!
-- Your CPU is a network
-  - not just QPI
-  - also within the core!
-- TLBs/RAM pages
-
-1 Guesses where data is
-2 CISC->RISC
-3 "JIT"s the RISC
-4 SSA form
-5 Predict future
-  python demo
-
-
+dropped:
+* Python demo 
+* cpu is a network
+* http://goo.gl/uLbQzY
