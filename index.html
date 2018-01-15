@@ -65,7 +65,7 @@
     add eax, [rdi]         ; add next value
     add rdi, 4             ; move pointer along
     cmp rdi, rdx           ; reached end?
-    bne loop               ; no, keep going
+    jne loop               ; no, keep going
     ret                    ; yay we're done
 </code></pre>
         </section>
@@ -125,7 +125,7 @@ mov [rsi], eax  ; *rsi = eax3
     add eax, [rdi]         ; add next value
     add rdi, 4             ; move pointer along
     cmp rdi, rdx           ; reached end?
-    bne loop               ; no, keep going
+    jne loop               ; no, keep going
 </code></pre>
             </section>
             <section>
@@ -133,11 +133,11 @@ mov [rsi], eax  ; *rsi = eax3
                 <pre><code class="asm">    add eax, [rdi]  ; eax1 = eax0 + *rdi0
     add rdi, 4      ; rdi1 = rdi0 + 4
     cmp rdi, rdx    ; cmp rdi1, rdx
-    bne loop        ; predicted taken
+    jne loop        ; predicted taken
     add eax, [rdi]  ; eax2 = eax1 + *rdi1
     add rdi, 4      ; rdi2 = rdi1 + 4
     cmp rdi, rdx    ; cmp rdi2, rdx
-    bne loop        ; predicted not taken
+    jne loop        ; predicted not taken
     ret
 </code></pre>
             </section>
@@ -158,10 +158,10 @@ mov [rsi], eax  ; *rsi = eax3
 
             <ul>
                 <li><a href="mailto:matt@godbolt.org">matt@godbolt.org</a></li>
-                <li><a href="http://xania.org/">http://xania.org</a></li>
+                <li><a href="https://xania.org/">https://xania.org</a></li>
                 <li><a href="https://twitter.com/mattgodbolt">@mattgodbolt</a></li>
                 <li><a href="https://github.com/mattgodbolt">github.com/mattgodbolt</a></li>
-                <li><a href="https://gcc.godbolt.org/">gcc.godbolt.org</a></li>
+                <li><a href="https://godbolt.org/">godbolt.org</a></li>
             </ul>
         </section>
     </div>
